@@ -1,0 +1,135 @@
+<div class="container-fluid">
+
+  <div style="text-align:center">
+    <h1>
+      Welcome to {{ title }}!
+    </h1>
+  </div>
+
+  <button (click)="syncButtonPress()">{{syncButton}}</button>
+  <button (click)="instancesButtonPress()">{{instancesButton}}</button>
+
+  <div style="border-width: 0.2em;
+    border-color: #80808045;
+    border-style: solid;
+    padding-left: 0.7em;
+    margin-bottom: 1em;
+    border-radius: 1em;">
+    <h2 style="text-align: center">Function Instances</h2>
+    <div class="row align-items-center">
+      <div *ngFor="let stepFunction of stepFunctions" class="col-auto" style="margin-bottom: 1em">
+        <ul class="list-group">
+          <li class="list-group-item" style="text-align: center"><b>{{stepFunction.functionName + "(" +
+            stepFunction.provider + ")"}}</b>
+          </li>
+          <span *ngIf="instancesButton === 'Show instances'">
+            <li *ngIf="stepFunction.instances.length > 0" class="list-group-item active"
+                [style.background-color]="'rgba(131,131,131,0.75)'"
+                [style.border-color]="'rgba(131,131,131,0.75)'">
+              <h4>Instances:</h4>
+              <ul>
+                <li>Number of Instances: {{stepFunction.instances.length}}</li>
+                <li>Busy Instances: {{stepFunction.busyInstances}} ({{Math.floor(100*(stepFunction.busyInstances/stepFunction.instances.length))}}%)</li>
+              </ul>
+            </li>
+            <li *ngIf="stepFunction.warmMetrics" class="list-group-item active"
+                [style.background-color]="'rgba(131,131,131,0.75)'"
+                [style.border-color]="'rgba(131,131,131,0.75)'">
+              <h4>Avg. warm metrics:</h4>
+              <ul>
+                <li>Init. Duration: {{Math.floor(stepFunction.warmMetrics.initDuration * 100) / 100}}</li>
+                <li>Exec. Duration: {{Math.floor(stepFunction.warmMetrics.executionDuration * 100) / 100}}</li>
+                <li>Exec. Offset: {{Math.floor(stepFunction.warmMetrics.executionOffset * 100) / 100}}</li>
+              </ul>
+            </li>
+            <li *ngIf="stepFunction.coldMetrics" class="list-group-item active"
+                [style.background-color]="'rgba(131,131,131,0.75)'"
+                [style.border-color]="'rgba(131,131,131,0.75)'">
+              <h4>Avg. cold metrics:</h4>
+              <ul>
+                <li>Init. Duration: {{Math.floor(stepFunction.coldMetrics.initDuration * 100) / 100}}</li>
+                <li>Exec. Duration: {{Math.floor(stepFunction.coldMetrics.executionDuration * 100) / 100}}</li>
+                <li>Exec. Offset: {{Math.floor(stepFunction.coldMetrics.executionOffset * 100) / 100}}</li>
+              </ul>
+            </li>
+          </span>
+          <span *ngIf="instancesButton === 'Show metrics'">
+            <li *ngFor="let instance of stepFunction.instances"
+                [style.background-color]="instance.state === 1 ? 'rgba(117,35,38,0.78)' : 'rgba(29,117,47,0.78)'"
+                [style.border-color]="instance.state === 1 ? 'rgba(117,35,38,0.78)' : 'rgba(29,117,47,0.78)'"
+                class="list-group-item active">
+            <p style="margin-bottom: 0">{{instance.instanceUuid}}</p>
+            <p style="color: rgba(240,248,255,0); height: 0; padding: 0; margin: 0">
+              39bac6a0-b4f1-11e8-bb76-e1f7bc51bbd7</p>
+          </li>
+          <li *ngIf="stepFunction.instances.length === 0" class="list-group-item">
+            <p style="text-align: center; margin-bottom: 0">-</p>
+            <p style="color: rgba(240,248,255,0); height: 0; padding: 0; margin: 0">
+              39bac6a0-b4f1-11e8-bb76-e1f7bc51bbd7</p>
+          </li>
+          </span>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!--div>
+    <h2 style="text-align: center">Workflow Executions</h2>
+    <div class="table-responsive">
+      <table class="table" style="text-align: center">
+        <thead class="thead-dark">
+        <tr>
+          <th scope="col">Workflow-ID</th>
+          <th scope="col">functionname1</th>
+          <th scope="col">functionname2</th>
+          <th scope="col">functionname3</th>
+          <th scope="col">functionname4</th>
+          <th scope="col">functionname5</th>
+          <th scope="col">functionname6</th>
+          <th scope="col">functionname7</th>
+          <th scope="col">functionname8</th>
+          <th scope="col">functionname9</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <th scope="row">39bb3bd0-b4f1-11e8-bb76-e1f7bc51bbd7</th>
+          <td>X</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">e1f7bc51bbd7-b4f1-11e8-bb76-39bb3bd0</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>X</td>
+          <td></td>
+        </tr>
+        <tr>
+          <th scope="row">gasdgf33-b4f1-11e8-bb76-e1f7bc51bbd7</th>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>X</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div-->
+</div>
